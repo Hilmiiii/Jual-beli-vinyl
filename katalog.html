@@ -108,6 +108,8 @@
             <option value="Indie">Indie</option>
             <option value="Midwest Emo">Midwest Emo</option>
             <option value="Shoegaze">Shoegaze</option>
+	    <option value="R&B">R&B</option>
+	    <option value="Alt Rock">Alt Rock</option>
         </select>
 
         <label for="filterKondisi">Kondisi:</label>
@@ -115,7 +117,7 @@
             <option value="">Semua</option>
             <option value="Near Mint">Near Mint</option>
             <option value="Very Good+">Very Good+</option>
-            <option value="Very Good">Very Good</option>
+            <option value="Very Good">Mint</option>
         </select>
 
         <span class="count" id="count">0 produk</span>
@@ -128,46 +130,70 @@
         const produk = [
             // ===== PRODUK LAMA =====
             { judul:"SIMILAR LP", genre:"Midwest Emo", kondisi:"Near Mint", harga:185000, tahun:2023,
-              img:"https://f4.bcbits.com/img/a2655476269_10.jpg",
+              img: "images/sim.jpg",
               link:"form.html" },
             { judul:"DIFFERENT LP", genre:"Midwest Emo", kondisi:"Very Good+", harga:874000, tahun:2025,
-              img:"https://f4.bcbits.com/img/a2182962246_10.jpg",
+              img: "images/dif.jpg",
               link:"form.html" },
             { judul:"Vakansi LP", genre:"Indie", kondisi:"Very Good+", harga:525000, tahun:2010,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/723b2326c8ae44b2938c20e6fade86da~tplv-aphluv4xwc-resize-jpeg:700:0.jpeg?lk3s=0ccea506&x-expires=1793343013&x-signature=nagUkoqUCu8LEzK7U3ri%2BGJIfpM%3D&x-signature-webp=rIs1lj3wTKg0j24EyEQkY%2F9olKo%3D",
+              img: "images/va.jpg",
               link:"form.html" },
             { judul:"Topstar Collection LP", genre:"Indie", kondisi:"Near Mint", harga:2775000, tahun:2023,
-              img:"https://f4.bcbits.com/img/a0813154691_10.jpg",
+              img: "images/top.jpg",
               link:"form.html" },
             { judul:"3 Hari Untuk Selamanya LP", genre:"Indie", kondisi:"Near Mint", harga:399000, tahun:2026,
-              img:"https://demajors.com/uploads/album/photo/thumb/medium/FLOAT1.png",
+              img: "images/3.jpg",
               link:"form.html" },
-            { judul:"Rukiah's Suites 2LP", genre:"Indie", kondisi:"Very Good", harga:625000, tahun:2024,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2024/11/2/fae06cdd-079e-4519-8655-935d43d010b0.jpg~tplv-aphluv4xwc-resize-jpeg:700:0.jpeg?lk3s=0ccea506&x-expires=1793359791&x-signature=I3SphqXqYkEHv%2FYp3WiGGUwTZHc%3D&x-signature-webp=ZUaBl5gZczpURUEi%2BWEytg9Q6ew%3D",
+            { judul:"Rukiah's Suites 2LP", genre:"Indie", kondisi:"Mint", harga:625000, tahun:2024,
+              img: "images/ru.jpg",
               link:"form.html" },
             { judul:"Souvlaki LP", genre:"Shoegaze", kondisi:"Near Mint", harga:827000, tahun:2025,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/b465986bfe88427091f4d034817e906b~tplv-aphluv4xwc-white-pad-v1:1600:1600.jpeg?lk3s=0ccea506&x-expires=1793360008&x-signature=0LrSy5DbmCRqmcOvoyjP%2F%2Broqlc%3D&x-signature-webp=GQ03YtXL9nuE2QaVTxpJ6Thd8Do%3D",
+              img: "images/sou.jpg",
               link:"form.html" },
-            { judul:"American Football (LP1)", genre:"Midwest Emo", kondisi:"Very Good", harga:195000, tahun:1999,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2023/7/27/60cb750e-2fcd-460c-89f4-9a7f7d6878cd.jpg~tplv-aphluv4xwc-white-pad-v1:1600:1600.jpeg?lk3s=0ccea506&x-expires=1793360234&x-signature=4pTcUgQcFethn1PfJiS1foc3G6Q%3D&x-signature-webp=Ka%2BWCHXn7n1GXpkz6qfFwPYN8A8%3D",
+            { judul:"American Football (LP1)", genre:"Midwest Emo", kondisi:"Mint", harga:195000, tahun:1999,
+              img: "images/lp1.jpg",
               link:"form.html" },
             { judul:"Efek Rumah Kaca LP", genre:"Indie", kondisi:"Near Mint", harga:1150000, tahun:2025,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/d28477ec6751407a9e980c19150b3657~tplv-aphluv4xwc-white-pad-v1:1600:1600.jpeg?lk3s=0ccea506&x-expires=1793361263&x-signature=i1GgZOVTCJkltnHVECat37aRG%2FU%3D&x-signature-webp=DXCnl8yYa8vss2rGdL7DHR53LKs%3D",
+              img: "images/efe.jpg",
               link:"form.html" },
             { judul:"Rimpang LP", genre:"Indie", kondisi:"Near Mint", harga:542000, tahun:2024,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2024/8/31/787c66ef-0df1-45fc-8656-f96eb4a6f138.jpg~tplv-aphluv4xwc-resize-jpeg:700:0.jpeg?lk3s=0ccea506&x-expires=1793361376&x-signature=geXEcoFPERPpfz%2FfgFF%2Fj0Q3EXY%3D&x-signature-webp=dzPmqKoEXg2TiWG3XaFgULZdLzA%3D",
+              img: "images/ri.jpg",
               link:"form.html" },
-            { judul:"Humaniora LP", genre:"Indie", kondisi:"Very Good", harga:3335000, tahun:2020,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/img/VqbcmM/2024/11/12/71cd8a13-40f9-420f-9c89-aafb270180b3.jpg~tplv-aphluv4xwc-white-pad-v1:1600:1600.jpeg?lk3s=0ccea506&x-expires=1793361612&x-signature=tU1VKbfsuY4jP7YS3QMIbuwWHwI%3D&x-signature-webp=G6P15s9hyRVncmH3iXLeLQjWsZY%3D",
+            { judul:"Pony LP", genre:"Indie", kondisi:"Mint", harga:2500000, tahun:2019,
+              img: "images/po.jpg",
+              link:"form.html" },
+	    { judul:"Pony LP", genre:"Indie", kondisi:"Mint", harga:2000000, tahun:2017,
+              img: "images/ap.jpg",
+              link:"form.html" },
+	    { judul:"Never Enough LP", genre:"R&B", kondisi:"Mint", harga:2500000, tahun:2023,
+              img: "images/ne.jpg",
+              link:"form.html" },
+	    { judul:"Son Of Spergy LP", genre:"R&B", kondisi:"Mint", harga:2500000, tahun:2025,
+              img: "images/so.jpg",
               link:"form.html" },
             { judul:"Loveless LP", genre:"Shoegaze", kondisi:"Near Mint", harga:830000, tahun:2025,
-              img:"https://p16-images-sign-sg.tokopedia-static.net/tos-alisg-i-aphluv4xwc-sg/51975302085841be9d21edee9219c2ef~tplv-aphluv4xwc-white-pad-v1:1600:1600.jpeg?lk3s=0ccea506&x-expires=1793361730&x-signature=Sblx0tIBo5p8Pa8EJzs%2F%2BCN%2FteM%3D&x-signature-webp=ZAXpKU3NWPFmr0w6W%2F8N6KREgKI%3D",
+              img: "images/lo.jpg",
               link:"form.html" },
             { judul:"American Football (LP4)", genre:"Midwest Emo", kondisi:"Near Mint", harga:553000, tahun:2026,
-              img:"https://www.polyvinylrecords.com/cdn/shop/files/AF_LP4_SQ1Retail_57132b8f-8cbc-4a69-b8db-787ec6efa470.jpg?v=1792520465&width=2800",
+              img: "images/lp4.jpg",
               link:"form.html" },
-            { judul:"Stratosphere LP", genre:"Shoegaze", kondisi:"Very Good", harga:516000, tahun:1998,
-              img:"https://www.polyvinylrecords.com/cdn/shop/files/f6e8de88807006538cd9be5fd3ba51c1_103d6b6b0a8f73debca290a7cbae4e430d073891_product_photo.jpg?v=1739893943&width=2800",
+            { judul:"Stratosphere LP", genre:"Shoegaze", kondisi:"Mint", harga:516000, tahun:1998,
+              img: "images/st.jpg",
+              link:"form.html" }
+	    { judul:"Nevermind LP", genre:"Alt Rock", kondisi:"Mint", harga:1500000, tahun:1991,
+              img: "images/nev.jpg",
+              link:"form.html" }
+	    { judul:"In Ulero LP", genre:"Alt Rock", kondisi:"Near Mint", harga:2000000, tahun:1993,
+              img: "images/in.jpg",
+              link:"form.html" }
+	    { judul:"Siamese Dream LP", genre:"Alt Rock", kondisi:"Mint", harga:1200000, tahun:1993,
+              img: "images/sia.jpg",
+              link:"form.html" }
+	    { judul:"God Said No LP", genre:"R&B", kondisi:"Very Good+", harga:900000, tahun:2024,
+              img: "images/go.jpg",
+              link:"form.html" }
+	    { judul:"Good Morning It's Now Tomorrow (5th Anniversary Collector's Edition, 2026)", genre:"Indie", kondisi:"Mint", harga:3000000, tahun:2026,
+              img: "images/od.jpg",
               link:"form.html" }
         ];
 
