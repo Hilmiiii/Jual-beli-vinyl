@@ -108,8 +108,8 @@
             <option value="Indie">Indie</option>
             <option value="Midwest Emo">Midwest Emo</option>
             <option value="Shoegaze">Shoegaze</option>
-	    <option value="R&B">R&B</option>
-	    <option value="Alt Rock">Alt Rock</option>
+            <option value="R&B">R&B</option>
+            <option value="Alt Rock">Alt Rock</option>
         </select>
 
         <label for="filterKondisi">Kondisi:</label>
@@ -162,13 +162,13 @@
             { judul:"Pony LP", genre:"Indie", kondisi:"Mint", harga:2500000, tahun:2019,
               img: "images/po.jpg",
               link:"form.html" },
-	    { judul:"Pony LP", genre:"Indie", kondisi:"Mint", harga:2000000, tahun:2017,
+            { judul:"Pony LP", genre:"Indie", kondisi:"Mint", harga:2000000, tahun:2017,
               img: "images/ap.jpg",
               link:"form.html" },
-	    { judul:"Never Enough LP", genre:"R&B", kondisi:"Mint", harga:2500000, tahun:2023,
+            { judul:"Never Enough LP", genre:"R&B", kondisi:"Mint", harga:2500000, tahun:2023,
               img: "images/ne.jpg",
               link:"form.html" },
-	    { judul:"Son Of Spergy LP", genre:"R&B", kondisi:"Mint", harga:2500000, tahun:2025,
+            { judul:"Son Of Spergy LP", genre:"R&B", kondisi:"Mint", harga:2500000, tahun:2025,
               img: "images/so.jpg",
               link:"form.html" },
             { judul:"Loveless LP", genre:"Shoegaze", kondisi:"Near Mint", harga:830000, tahun:2025,
@@ -180,19 +180,19 @@
             { judul:"Stratosphere LP", genre:"Shoegaze", kondisi:"Mint", harga:516000, tahun:1998,
               img: "images/st.jpg",
               link:"form.html" },
-	    { judul:"Nevermind LP", genre:"Alt Rock", kondisi:"Mint", harga:1500000, tahun:1991,
+            { judul:"Nevermind LP", genre:"Alt Rock", kondisi:"Mint", harga:1500000, tahun:1991,
               img: "images/nev.jpg",
               link:"form.html" },
-	    { judul:"In Ulero LP", genre:"Alt Rock", kondisi:"Near Mint", harga:2000000, tahun:1993,
+            { judul:"In Ulero LP", genre:"Alt Rock", kondisi:"Near Mint", harga:2000000, tahun:1993,
               img: "images/in.jpg",
               link:"form.html" },
-	    { judul:"Siamese Dream LP", genre:"Alt Rock", kondisi:"Mint", harga:1200000, tahun:1993,
+            { judul:"Siamese Dream LP", genre:"Alt Rock", kondisi:"Mint", harga:1200000, tahun:1993,
               img: "images/sia.jpg",
               link:"form.html" },
-	    { judul:"God Said No LP", genre:"R&B", kondisi:"Very Good+", harga:900000, tahun:2024,
+            { judul:"God Said No LP", genre:"R&B", kondisi:"Very Good+", harga:900000, tahun:2024,
               img: "images/go.jpg",
               link:"form.html" },
-	    { judul:"Good Morning It's Now Tomorrow (5th Anniversary Collector's Edition, 2026)", genre:"Indie", kondisi:"Mint", harga:3000000, tahun:2026,
+            { judul:"Good Morning It's Now Tomorrow (5th Anniversary Collector's Edition, 2026)", genre:"Indie", kondisi:"Mint", harga:3000000, tahun:2026,
               img: "images/od.jpg",
               link:"form.html" }
         ];
@@ -232,6 +232,13 @@
 
         document.getElementById('filterGenre').addEventListener('change', render);
         document.getElementById('filterKondisi').addEventListener('change', render);
+
+        window.addEventListener('pageshow', function() {
+            document.getElementById('filterGenre').value = "";
+            document.getElementById('filterKondisi').value = "";
+            render();
+        });
+
         render();
     </script>
 </body>
