@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Jual Beli Vinyl — Vinyl Hilmi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #F7F4EF;
+            --bg-card: #FFFFFF;
+            --text-primary: #1C1917;
+            --text-secondary: #57534E;
+            --accent: #B45309;
+            --accent-hover: #92400E;
+            --border-color: #E7E5E4;
+            --input-bg: #FAFAF9;
+        }
+
+        body.dark-theme {
+            --bg-primary: #121110;
+            --bg-card: #1E1C1A;
+            --text-primary: #F5F5F4;
+            --text-secondary: #A8A29E;
+            --accent: #D97706;
+            --accent-hover: #F59E0B;
+            --border-color: #292524;
+            --input-bg: #171514;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-image: radial-gradient(circle at 50% 0%, rgba(180, 83, 9, 0.08), transparent 60%);
+        }
+
+        .form-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            max-width: 520px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #1C1917 0%, #292524 100%);
+            color: #F7F4EF;
+            padding: 2rem 2rem 1.75rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #D97706;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.85rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        .form-header p {
+            font-size: 0.875rem;
+            color: #A8A29E;
+            margin-top: 0.4rem;
+        }
+
+        .theme-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #F7F4EF;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label.field-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.45rem;
+            color: var(--text-primary);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--input-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.925rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: var(--accent);
+        }
+
+        .radio-section {
+            margin-top: 1.5rem;
+            margin-bottom: 1.75rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .radio-section h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .radio-section p {
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.85rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 0.85rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background-color: var(--input-bg);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .radio-option input[type="radio"] {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.85rem;
+            background-color: var(--accent);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="form-header">
+            <button type="button" id="toggleThemeBtn" class="theme-btn" title="Ganti Tema">🌙</button>
+            <p class="eyebrow">EST. 2026 · VINYL HILMI</p>
+            <h2>Form Jual Beli Vinyl</h2>
+            <p>Piringan hitam berkualitas, diputar ulang dengan cerita baru.</p>
+        </div>
+
+        <form id="vinylTradeForm">
+            <!-- Input Nama Pembeli / Penjual -->
+            <div class="form-group">
+                <label class="field-label" for="nama">Nama:</label>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+
+            <!-- Input Nama Album -->
+            <div class="form-group">
+                <label class="field-label" for="nama_album">Nama Album:</label>
+                <input type="text" id="nama_album" name="nama_album" placeholder="Contoh: American Football - LP1" required>
+            </div>
+
+            <!-- Input Harga / Penawaran -->
+            <div class="form-group">
+                <label class="field-label" for="harga">Penawaran / Estimasi Harga (Rp):</label>
+                <input type="number" id="harga" name="harga" placeholder="Contoh: 350000" min="150000" required>
+            </div>
+
+            <!-- Select Jenis Transaksi -->
+            <div class="form-group">
+                <label class="field-label" for="jenis_transaksi">Jenis Transaksi:</label>
+                <select id="jenis_transaksi" name="jenis_transaksi" required>
+                    <option value="">-- Pilih Transaksi --</option>
+                    <option value="beli">Beli Vinyl dari Katalog</option>
+                    <option value="jual">Jual Vinyl Bekas ke Toko</option>
+                    <option value="preorder">Pre-Order / Request Judul</option>
+                </select>
+            </div>
+
+            <!-- Select Genre Piringan Hitam -->
+            <div class="form-group">
+                <label class="field-label" for="genre">Genre Piringan Hitam:</label>
+                <select id="genre" name="genre" required>
+                    <option value="">-- Pilih Genre --</option>
+                    <option value="INDIE">Indie</option>
+                    <option value="MIDWEST EMO">Midwest Emo</option>
+                    <option value="SHOEGAZE">Shoegaze</option>
+                    <option value="R&B">R&B</option>
+                    <option value="ROCK / ALTERNATIVE">Rock / Alternative</option>
+                </select>
+            </div>
+
+            <!-- Radio Button Kondisi Vinyl (Mint, Near Mint, Very Good) -->
+            <div class="radio-section">
+                <h3>Kondisi Piringan Hitam (Grading)</h3>
+                <p>Pilih tingkat kondisi fisik vinyl:</p>
+
+                <label class="radio-option" for="mint">
+                    <input type="radio" id="mint" name="kondisi" value="Mint" required>
+                    <span>Mint (M) — Sempurna</span>
+                </label>
+
+                <label class="radio-option" for="near_mint">
+                    <input type="radio" id="near_mint" name="kondisi" value="Near Mint">
+                    <span>Near Mint (NM) — Sangat terawat</span>
+                </label>
+
+                <label class="radio-option" for="very_good">
+                    <input type="radio" id="very_good" name="kondisi" value="Very Good">
+                    <span>Very Good (VG) — Pemakaian wajar</span>
+                </label>
+            </div>
+
+            <button type="submit">Kirim Pengajuan Vinyl</button>
+        </form>
+    </div>
+
+    <script>
+        const THEME_KEY = 'vinylTheme';
+        const toggleBtn = document.getElementById('toggleThemeBtn');
+
+        function syncTheme() {
+            const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+            document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+            toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-theme');
+            const newTheme = isDark ? 'dark' : 'light';
+            localStorage.setItem(THEME_KEY, newTheme);
+            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+        });
+
+        window.addEventListener('DOMContentLoaded', syncTheme);
+
+        document.getElementById('vinylTradeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const album = document.getElementById('nama_album').value;
+            alert(`Terima kasih, ${nama}! Pengajuan untuk album "${album}" telah berhasil dikirim.`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>

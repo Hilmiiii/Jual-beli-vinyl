@@ -8,6 +8,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style2.css">
+    <style>
+        /* Penyesuaian wadah konten pengganti iframe agar tinggi otomatis mengikuti isi */
+        #appContent {
+            width: 100%;
+            min-height: 520px;
+            border-radius: 12px;
+            padding: 12px;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+        .nav-links a.active-nav {
+            background: var(--mustard);
+            color: var(--brown-deep);
+        }
+        /* Memastikan elemen di dalam halaman yang dimuat ikut menyesuaikan tema gelap */
+        body.dark-theme #appContent .card,
+        body.dark-theme #appContent .filters,
+        body.dark-theme #appContent .contact-card,
+        body.dark-theme #appContent .form-container {
+            background-color: var(--cream-soft);
+            border-color: var(--border);
+            color: var(--text);
+        }
+        body.dark-theme #appContent h1,
+        body.dark-theme #appContent h2,
+        body.dark-theme #appContent h3,
+        body.dark-theme #appContent label {
+            color: var(--brown-deep);
+        }
+        body.dark-theme #appContent select,
+        body.dark-theme #appContent input {
+            background-color: var(--cream);
+            color: var(--text);
+            border-color: var(--border);
+        }
+    </style>
 </head>
 <body>
 
@@ -52,22 +87,24 @@
     <div id="siteContent" hidden>
 
         <nav>
-            <a class="nav-brand" href="home.html" target="konten">
+            <a class="nav-brand" href="home.html" data-page="home.html">
                 <span class="brand-disc">●</span> Vinyl Hilmi
             </a>
 
             <div class="nav-links">
-                <a href="home.html"        target="konten">Home</a>
-                <a href="profil1.html"     target="konten">Profil</a>
-                <a href="katalog.html"     target="konten">Katalog</a>
-                <a href="perlengkapan.html" target="konten">Perlengkapan</a>
-                <a href="kontak.html"       target="konten">Kontak</a>
-		<div class="dropdown">
-                    <a href="indie.html" target="konten" tabindex="0">Coba lagu</a>
-		    <div class="dropdown-content">
-                        <a href="indie.html" target="konten">Indie</a>
-                        <a href="midwest.html" target="konten">Midwest</a>
+                <a href="home.html" data-page="home.html" class="active-nav">Home</a>
+                <a href="profil1.html" data-page="profil1.html">Profil</a>
+                <a href="katalog.html" data-page="katalog.html">Katalog</a>
+                <a href="perlengkapan.html" data-page="perlengkapan.html">Perlengkapan</a>
+                <a href="kontak.html" data-page="kontak.html">Kontak</a>
+		<a href="sumber.html" data-page="sumber.html">Sumber Gambar</a>
+                <div class="dropdown">
+                    <a href="indie.html" data-page="indie.html" tabindex="0">Coba lagu</a>
+                    <div class="dropdown-content">
+                        <a href="indie.html" data-page="indie.html">Indie</a>
+                        <a href="midwest.html" data-page="midwest.html">Midwest</a>
                     </div>
+                </div>
             </div>
 
             <div id="avatarMenu" class="avatar-menu">
@@ -87,10 +124,6 @@
                         <button id="btnLoginDropdown" class="btn-primary btn-login-dropdown">Login</button>
                     </div>
 
-                    <a href="wishlist.html" target="konten" id="wishlistLink" class="avatar-dropdown-item">
-                        <span class="dropdown-icon">❤️</span> Wishlist
-                    </a>
-
                     <div class="avatar-dropdown-item theme-toggle-row">
                         <span class="dropdown-icon" id="themeIcon">🌙</span>
                         <span>Mode Gelap</span>
@@ -104,11 +137,8 @@
         </nav>
 
         <main>
-            <iframe
-                src="home.html"
-                name="konten"
-                title="Area Konten Website">
-            </iframe>
+            <!-- Area Konten Langsung (Tanpa Iframe) -->
+            <div id="appContent"></div>
         </main>
 
         <footer>
@@ -121,6 +151,7 @@
         /* ===== SESI / AKUN ===== */
         const USERS_KEY = 'vinylUsers';
         const SESSION_KEY = 'vinylSession';
+        const ENTERED_KEY = 'vinylEntered';
 
         function getUsers() {
             try { return JSON.parse(localStorage.getItem(USERS_KEY)) || {}; }
@@ -135,6 +166,7 @@
         }
 
         function enterSite() {
+            sessionStorage.setItem(ENTERED_KEY, 'true');
             document.getElementById('authGate').hidden = true;
             document.getElementById('authOverlay').hidden = true;
             document.getElementById('siteContent').hidden = false;
@@ -165,9 +197,86 @@
             document.getElementById('authOverlay').hidden = false;
         }
 
+        /* ===== MUAT HALAMAN TANPA IFRAME ===== */
+        const appContent = document.getElementById('appContent');
+        let injectedStyles = [];
+
+        async function loadPage(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Halaman tidak ditemukan');
+                const htmlText = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+
+                // Hapus style bawaan halaman sebelumnya agar tidak bentrok
+                injectedStyles.forEach(el => el.remove());
+                injectedStyles = [];
+
+                // Salin <style> dan <link rel="stylesheet"> dari halaman tujuan (kecuali style2.css)
+                doc.querySelectorAll('style, link[rel="stylesheet"]').forEach(node => {
+                    if (node.tagName === 'LINK' && node.getAttribute('href') === 'style2.css') return;
+                    const clone = node.cloneNode(true);
+                    // Hindari aturan body yang menimpa layout utama
+                    if (clone.tagName === 'STYLE') {
+                        clone.textContent = clone.textContent.replace(/(^|\})\s*body\s*\{/g, '$1 #appContent {');
+                    }
+                    document.head.appendChild(clone);
+                    injectedStyles.push(clone);
+                });
+
+                // Masukkan isi <body> halaman tujuan ke #appContent
+                appContent.innerHTML = doc.body.innerHTML;
+
+                // Jalankan ulang <script> yang ada di halaman tujuan (misal render katalog / carousel)
+                doc.querySelectorAll('script').forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    if (oldScript.src) {
+                        newScript.src = oldScript.src;
+                    } else {
+                        newScript.textContent = oldScript.textContent;
+                    }
+                    appContent.appendChild(newScript);
+                });
+
+                // Tangkap klik link internal di dalam konten (misal klik album di katalog -> form.html)
+                appContent.querySelectorAll('a[href]').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:') && href.endsWith('.html')) {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            loadPage(href);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        });
+                    }
+                });
+
+                // Update highlight menu aktif
+                document.querySelectorAll('.nav-links a[data-page]').forEach(navLink => {
+                    navLink.classList.toggle('active-nav', navLink.getAttribute('data-page') === url);
+                });
+
+            } catch (err) {
+                appContent.innerHTML = `<div style="padding:40px;text-align:center;"><h3>Halaman belum tersedia</h3><p style="margin-top:8px;color:var(--text-muted);">Pastikan file <strong>${url}</strong> berada di folder yang sama dengan index.html.</p></div>`;
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             updateAuthUI();
             initTheme();
+            if (sessionStorage.getItem(ENTERED_KEY) === 'true') {
+                enterSite();
+            }
+            loadPage('home.html');
+        });
+
+        // Event klik menu navigasi
+        document.querySelectorAll('nav a[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                loadPage(page);
+            });
         });
 
         document.getElementById('btnEnter').addEventListener('click', enterSite);
@@ -258,29 +367,23 @@
             }
         });
 
-        document.getElementById('wishlistLink').addEventListener('click', (e) => {
-            const session = localStorage.getItem(SESSION_KEY);
-            avatarDropdown.hidden = true;
-            if (!session) {
-                e.preventDefault();
-                openLoginForm();
-            }
-        });
-
         /* ===== TEMA ===== */
         const THEME_KEY = 'vinylTheme';
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
 
         function applyTheme(theme) {
-            document.body.classList.toggle('dark-theme', theme === 'dark');
-            themeToggle.checked = theme === 'dark';
-            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            const isDark = (theme === 'dark');
+            document.body.classList.toggle('dark-theme', isDark);
+            themeToggle.checked = isDark;
+            themeIcon.textContent = isDark ? '☀️' : '🌙';
         }
+
         function initTheme() {
             const saved = localStorage.getItem(THEME_KEY) || 'light';
             applyTheme(saved);
         }
+
         themeToggle.addEventListener('change', (e) => {
             const theme = e.target.checked ? 'dark' : 'light';
             localStorage.setItem(THEME_KEY, theme);
